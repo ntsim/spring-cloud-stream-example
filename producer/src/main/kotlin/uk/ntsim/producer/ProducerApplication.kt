@@ -22,8 +22,12 @@ class MessageBindingConfig
 
 fun main(args: Array<String>) {
   val context = SpringApplication.run(ProducerApplication::class.java, *args)
+
   val userMessageSender = context.getBean(UserMessageSender::class.java)
   userMessageSender.sendUserMessage(UserMessage("test@test.com", firstName = "John", lastName = "Doe", age = 20))
+
+  val addressMessageSender = context.getBean(AddressMessageSender::class.java)
+  addressMessageSender.sendAddressMessage(AddressMessage("1 Sheffield Way", "City Center", "Sheffield", "S1 SHF"))
 }
 
 @Component

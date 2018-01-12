@@ -22,3 +22,5 @@ spring:
                username: guest
                password: guest
                virtual-host: /
+server:
+  port: 8080

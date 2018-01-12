@@ -9,6 +9,7 @@ import org.springframework.cloud.stream.annotation.Input
 import org.springframework.cloud.stream.annotation.StreamListener
 import org.springframework.integration.annotation.Transformer
 import org.springframework.messaging.SubscribableChannel
+import org.springframework.messaging.handler.annotation.SendTo
 import org.springframework.stereotype.Component
 import uk.ntsim.*
 
@@ -47,7 +48,8 @@ final class AddressMessageProcessor {
 
   private val log: Logger = LoggerFactory.getLogger(this::class.java)
 
-  @Transformer(inputChannel = ADDRESS_VALIDATION_CHANNEL, outputChannel = ADDRESS_CHANNEL)
+  @Input(ADDRESS_VALIDATION_CHANNEL)
+  @SendTo(ADDRESS_CHANNEL)
   fun validateAddress(address: AddressMessage): ValidatedAddressMessage {
     var isValid = true
 

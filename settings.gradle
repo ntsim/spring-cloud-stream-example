@@ -1,2 +1,5 @@
 rootProject.name = 'spring-cloud-stream-example'
 
+include 'consumer'
+include 'producer'
+include 'common'

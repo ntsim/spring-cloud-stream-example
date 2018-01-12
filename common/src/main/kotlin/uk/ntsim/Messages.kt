@@ -8,7 +8,6 @@ data class UserMessage(
 )
 
 data class AddressMessage(
-  val userId: Int,
   val address1: String,
   val address2: String,
   val city: String,
