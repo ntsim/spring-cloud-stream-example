@@ -1,5 +1,7 @@
 package uk.ntsim
 
+import java.math.BigDecimal
+
 data class UserMessage(
   val email: String,
   val firstName: String,
@@ -17,4 +19,11 @@ data class AddressMessage(
 data class ValidatedAddressMessage(
   val isValid: Boolean,
   val data: AddressMessage
+)
+
+data class PaymentMessage(
+  val amount: BigDecimal,
+  val taxed: Boolean,
+  val taxedAmount: BigDecimal = (0.0).toBigDecimal(),
+  val vendor: String
 )

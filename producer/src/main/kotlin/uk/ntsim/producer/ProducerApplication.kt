@@ -6,10 +6,7 @@ import org.springframework.cloud.stream.annotation.EnableBinding
 import org.springframework.cloud.stream.annotation.Output
 import org.springframework.messaging.MessageChannel
 import org.springframework.stereotype.Component
-import uk.ntsim.ADDRESS_VALIDATION_CHANNEL
-import uk.ntsim.AddressMessage
-import uk.ntsim.USER_CHANNEL
-import uk.ntsim.UserMessage
+import uk.ntsim.*
 
 @SpringBootApplication
 class ProducerApplication
@@ -36,4 +33,7 @@ interface ChannelBindings {
 
   @Output(ADDRESS_VALIDATION_CHANNEL)
   fun addresses(): MessageChannel
+
+  @Output(PAYMENT_CHANNEL)
+  fun payments(): MessageChannel
 }

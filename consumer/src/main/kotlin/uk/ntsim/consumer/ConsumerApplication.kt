@@ -7,6 +7,7 @@ import org.springframework.cloud.stream.annotation.Input
 import org.springframework.messaging.SubscribableChannel
 import uk.ntsim.ADDRESS_CHANNEL
 import uk.ntsim.ADDRESS_VALIDATION_CHANNEL
+import uk.ntsim.PAYMENT_CHANNEL
 import uk.ntsim.USER_CHANNEL
 
 fun main(args: Array<String>) {
@@ -29,4 +30,7 @@ interface ChannelBindings {
 
   @Input(ADDRESS_CHANNEL)
   fun addresses(): SubscribableChannel
+
+  @Input(PAYMENT_CHANNEL)
+  fun payments(): SubscribableChannel
 }
