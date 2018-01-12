@@ -25,6 +25,7 @@ fun main(args: Array<String>) {
 
   val addressMessageSender = context.getBean(AddressMessageSender::class.java)
   addressMessageSender.sendAddressMessage(AddressMessage("1 Sheffield Way", "City Center", "Sheffield", "S1 SHF"))
+  addressMessageSender.sendAddressMessage(AddressMessage("X", "X", "X", "XXX"))
 }
 
 @Component

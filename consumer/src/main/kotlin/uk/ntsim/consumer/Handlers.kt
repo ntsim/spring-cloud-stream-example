@@ -44,6 +44,10 @@ final class AddressMessageHandler {
 
   @StreamListener(ADDRESS_CHANNEL)
   fun saveAddress(address: ValidatedAddressMessage) {
-    log.info("Saving Address: $address")
+    if (address.isValid) {
+      log.info("Saving Address: $address")
+    } else {
+      log.warn("Invalid Address received: $address")
+    }
   }
 }
