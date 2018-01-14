@@ -64,9 +64,8 @@ class PaymentMessageHandler {
   @StreamListener
   @Output(TAXED_PAYMENT_CHANNEL)
   fun taxPayments(@Input(PAYMENT_CHANNEL) paymentStream: Flux<PaymentMessage>): Flux<PaymentMessage> {
-    paymentStream.subscribe { log.info("Checking tax for Payment: $it") }
-
     return paymentStream
+      .doOnEach { log.info("Checking tax for Payment: $it") }
       .map {
         if (!it.taxed) {
           PaymentMessage(

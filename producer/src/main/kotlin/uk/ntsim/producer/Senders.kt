@@ -56,7 +56,6 @@ class PaymentMessageSender {
         )
       }
 
-
     val taxedFlux = Flux
       .interval(Duration.ofSeconds(1L))
       .map {
@@ -67,9 +66,11 @@ class PaymentMessageSender {
           vendor = "Orange"
         )
       }
-      .publish()
 
-    output.send(untaxedFlux)
-    output.send(taxedFlux)
+    output.send(
+      untaxedFlux
+        .mergeWith(taxedFlux)
+        .doOnEach { log.info("Sending Payment message: ${it.get()}") }
+    )
   }
 }
