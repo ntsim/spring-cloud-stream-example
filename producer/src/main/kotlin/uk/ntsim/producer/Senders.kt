@@ -38,8 +38,8 @@ final class AddressMessageSender(private val bindings: ChannelBindings) {
   }
 }
 
-@Configuration
-class PaymentMessageSender {
+@Component
+final class PaymentMessageSender {
 
   private val log: Logger = LoggerFactory.getLogger(this::class.java)
 
