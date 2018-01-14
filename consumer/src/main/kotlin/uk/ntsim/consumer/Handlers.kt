@@ -71,7 +71,6 @@ class PaymentMessageHandler {
           PaymentMessage(
             amount = it.amount,
             taxed = true,
-
             taxedAmount = it.amount * taxModifier,
             vendor = it.vendor
           )
