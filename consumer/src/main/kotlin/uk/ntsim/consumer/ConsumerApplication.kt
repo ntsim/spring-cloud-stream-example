@@ -5,10 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.cloud.stream.annotation.EnableBinding
 import org.springframework.cloud.stream.annotation.Input
 import org.springframework.messaging.SubscribableChannel
-import uk.ntsim.ADDRESS_CHANNEL
-import uk.ntsim.ADDRESS_VALIDATION_CHANNEL
-import uk.ntsim.PAYMENT_CHANNEL
-import uk.ntsim.USER_CHANNEL
+import uk.ntsim.*
 
 fun main(args: Array<String>) {
   SpringApplication.run(ConsumerApplication::class.java, *args)
@@ -33,4 +30,7 @@ interface ChannelBindings {
 
   @Input(PAYMENT_CHANNEL)
   fun payments(): SubscribableChannel
+
+  @Input(TAXED_PAYMENT_CHANNEL)
+  fun taxedPamyents(): SubscribableChannel
 }

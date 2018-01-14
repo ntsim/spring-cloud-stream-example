@@ -2,6 +2,8 @@ package uk.ntsim.consumer
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.springframework.cloud.stream.annotation.Input
+import org.springframework.cloud.stream.annotation.Output
 import org.springframework.cloud.stream.annotation.StreamListener
 import org.springframework.integration.annotation.Transformer
 import org.springframework.stereotype.Component
@@ -54,24 +56,32 @@ final class AddressMessageHandler {
 }
 
 @Component
-final class PaymentMessageHandler {
+class PaymentMessageHandler {
 
   private val log: Logger = LoggerFactory.getLogger(this::class.java)
   private val taxModifier = (1.2).toBigDecimal()
 
-  @StreamListener(PAYMENT_CHANNEL)
-  fun savePayment(payment: Flux<PaymentMessage>) {
-    payment
-      .filter { !it.taxed }
+  @StreamListener
+  @Output(TAXED_PAYMENT_CHANNEL)
+  fun taxPayments(@Input(PAYMENT_CHANNEL) paymentStream: Flux<PaymentMessage>): Flux<PaymentMessage> {
+    paymentStream.subscribe { log.info("Checking tax for Payment: $it") }
+
+    return paymentStream
       .map {
-        PaymentMessage(
-          amount = it.amount,
-          taxed = true,
-          taxedAmount = it.amount * taxModifier,
-          vendor = it.vendor
-        )
+        if (!it.taxed) {
+          PaymentMessage(
+            amount = it.amount,
+            taxed = true,
+
+            taxedAmount = it.amount * taxModifier,
+            vendor = it.vendor
+          )
+        } else it
       }
-      .bufferUntil { !it.taxed }
-      .doOnEach { log.info("Processed Payment: $it") }
+  }
+
+  @StreamListener(TAXED_PAYMENT_CHANNEL)
+  fun savePayments(payment: PaymentMessage) {
+    log.info("Saving taxed Payment: $payment")
   }
 }
