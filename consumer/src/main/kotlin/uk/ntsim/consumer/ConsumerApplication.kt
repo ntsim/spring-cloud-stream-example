@@ -32,5 +32,5 @@ interface ChannelBindings {
   fun payments(): SubscribableChannel
 
   @Input(TAXED_PAYMENT_CHANNEL)
-  fun taxedPamyents(): SubscribableChannel
+  fun taxedPayments(): SubscribableChannel
 }
