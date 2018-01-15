@@ -7,14 +7,25 @@ This is an example implementation of a Spring Cloud Stream application demonstra
 1. You will need to run RabbitMQ. You can simply start this up using Docker by running the following from the project 
    root:
 
-    ```bash
-    docker-compose up -d
-    ```
+   ```bash
+   docker-compose up -d
+   ```
     
-2. From IntelliJ, run the applications in `consumer` and `producer` - specifically `ConsumerApplication` and
-   `ProducerApplication`.
+2a. From IntelliJ (requires **Kotlin plugin >1.2** to be installed), run the applications in `consumer` 
+    and `producer` - specifically `ConsumerApplication` and `ProducerApplication`.
    
    Order shouldn't matter, but `ConsumerApplication` may be ran first if there are any ordering issues.
+   
+2b. Alternatively from a terminal, open up two tabs then run the following tasks in each one respectively:
+
+   ```bash
+   # Terminal 1
+   ./gradlew consumer:bootRun
+   
+   # Terminal 2
+   ./gradlew producer:bootRun
+   ```
+    
    
 ## Observations
 
